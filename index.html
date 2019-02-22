@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="/normalize.css" />
     <link rel="stylesheet" href="/styles.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,12 +9,27 @@
     <title>Document</title>
   </head>
   <body>
-    <h1 class="h1" id="h1">HEADER 1</h1>
-    <h1 class="h2">HEADER 2</h1>
-    <form method="POST">
-      <input type="email" required="required" />
-      <button type="reset"></button>
-      <button type="submit"></button>
-    </form>
+    <div class="main-container">
+      <header class="header">
+        <img src="/images/di_to-do-p1.svg" />
+        <img src="/images/di_to-do-p2.svg" />
+        <img src="/images/di_to-do-p3.svg" />
+      </header>
+      <div class="cards-container">
+        <div class="card-item">
+          <div class="card-header">
+            <div class="card-header-title"></div>
+            <div class="card-header-icon"></div>
+          </div>
+          <div class="card-body">
+            <div class="card-body-checkbox"></div>
+            <div class="card-body-title"></div>
+          </div>
+          <div class="card-footer">
+            <input type="text" />
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
