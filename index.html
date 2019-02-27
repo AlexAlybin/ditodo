@@ -1,69 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="/normalize.css" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="normalize.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>DI To Do</title>
   </head>
   <body>
     <div class="main-container">
       <header class="header">
-        <img src="/images/di_to-do-p1.svg" />
+        <img src="images/di_to-do-p1.svg" />
         <div class="header-line"></div>
-        <img src="/images/di_to-do-p3.svg" />
+        <img src="images/di_to-do-p3.svg" />
       </header>
       <div class="cards-container">
         <div class="card-item">
           <div class="card-header">
-            <div class="card-header-title"><input type="text" /></div>
+            <div class="card-header-title">
+              <input type="text" placeholder="Add card title" />
+            </div>
             <div class="card-header-icon">
-              <img src="./images/delete.svg" alt="" />
+              <img src="images/delete.svg" alt="delete-icon" />
             </div>
           </div>
-          <div class="card-body">
-            <div class="card-body-checkbox"></div>
-            <div class="card-body-title"></div>
-          </div>
+          <ul class="card-body">
+            <li>
+              <input type="checkbox" />
+              <label class="card-body-title"
+                >Is there a web-safe Helvetica Nedfdsfds fafaue CSS font-family
+                stack?</label
+              >
+            </li>
+            <li>
+              <input type="checkbox" />
+              <label class="card-body-title"
+                >Is there a web-safe Helvetica Neue CSS font-family
+                stack?</label
+              >
+            </li>
+          </ul>
           <div class="card-footer">
-            <input type="text" />
+            <input type="text" placeholder="Add to-do" />
           </div>
         </div>
         <div class="card-item">
           <div class="card-header">
-            <div class="card-header-title"><input type="text" /></div>
+            <div class="card-header-title">
+              <input type="text" placeholder="Add card title" />
+            </div>
             <div class="card-header-icon">
-              <img src="./images/delete.svg" alt="" />
+              <img src="images/delete.svg" alt="delete-icon" />
             </div>
           </div>
-          <div class="card-body">
-            <div class="card-body-checkbox"></div>
-            <div class="card-body-title"></div>
-          </div>
+          <ul class="card-body">
+            <li>
+              <input type="checkbox" />
+              <label class="card-body-title"
+                >Is there a web-safe Helvetica Nedfdsfds fafaue CSS font-family
+                stack?</label
+              >
+            </li>
+            <li>
+              <input type="checkbox" />
+              <label class="card-body-title"
+                >Is there a web-safe Helvetica Neue CSS font-family
+                stack?</label
+              >
+            </li>
+          </ul>
           <div class="card-footer">
-            <input type="text" />
-          </div>
-        </div>
-        <div class="card-item">
-          <div class="card-header">
-            <div class="card-header-title"><input type="text" /></div>
-            <div class="card-header-icon">
-              <img src="./images/delete.svg" alt="" />
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="card-body-checkbox"></div>
-            <div class="card-body-title"></div>
-          </div>
-          <div class="card-footer">
-            <input type="text" />
+            <input type="text" placeholder="Add to-do" />
           </div>
         </div>
       </div>
       <div class="add-card-icon">
-        <img src="/images/add.svg" alt="add card icon" />
+        <img src="images/add.svg" alt="add card icon" />
       </div>
     </div>
   </body>
