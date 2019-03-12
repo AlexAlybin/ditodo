@@ -31,11 +31,10 @@ body {
   margin: 0 10px;
 }
 
-.cards-container {
+#cards-container {
   display: flex;
   flex-flow: row wrap;
   max-width: 1180px;
-  /* background-color: rgb(231, 81, 81); */
   justify-content: space-between;
 }
 
@@ -112,7 +111,7 @@ input[type="checkbox"]:checked + label {
   margin-top: auto;
 }
 
-.add-card-icon {
+#add-card-icon {
   right: 110px;
   bottom: 50px;
   position: fixed;

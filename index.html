@@ -19,14 +19,18 @@
         <div class="header-line"></div>
         <img src="images/di_to-do-p3.svg" />
       </header>
-      <div class="cards-container">
+      <div id="cards-container">
         <div class="card-item">
           <div class="card-header">
             <div class="card-header-title">
               <input type="text" placeholder="Add card title" />
             </div>
             <div class="card-header-icon">
-              <img src="images/delete.svg" alt="delete-icon" />
+              <img
+                class="delete-card-icon"
+                src="images/delete.svg"
+                alt="delete-icon"
+              />
             </div>
           </div>
           <ul class="card-body">
@@ -55,7 +59,11 @@
               <input type="text" placeholder="Add card title" />
             </div>
             <div class="card-header-icon">
-              <img src="images/delete.svg" alt="delete-icon" />
+              <img
+                class="delete-card-icon"
+                src="images/delete.svg"
+                alt="delete-icon"
+              />
             </div>
           </div>
           <ul class="card-body">
@@ -87,9 +95,10 @@
           </div>
         </div>
       </div>
-      <div class="add-card-icon">
-        <img src="images/add.svg" alt="add card icon" />
+      <div id="add-card-icon">
+        <img id="add-card-btn" src="images/add.svg" alt="add card icon" />
       </div>
     </div>
+    <script src="/script.js"></script>
   </body>
 </html>
