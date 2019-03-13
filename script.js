@@ -42,7 +42,7 @@ function createCard(card) {
   var cardHeaderTitleInput = document.createElement("input");
   cardHeaderTitleInput.type = "text";
   cardHeaderTitleInput.placeholder = "Add card title";
-  cardHeaderTitleInput.innerText = card.title;
+  cardHeaderTitleInput.value = card.title;
   cardHeaderTitle.appendChild(cardHeaderTitleInput);
 
   var cardHeaderIcon = document.createElement("div");
@@ -56,15 +56,22 @@ function createCard(card) {
 
   var cardItemList = document.createElement("ul");
   cardItemList.setAttribute("class", "card-body");
-  var cardListItem = document.createElement("li");
-  var cardItemCheckbox = document.createElement("input");
-  cardItemCheckbox.type = "checkbox";
-  cardItemCheckbox.className = "checkbox";
-  cardListItem.appendChild(cardItemCheckbox);
-  var cardItemText = document.createElement("label");
-  cardItemText.className = "card-body-title";
-  cardItemText.innerText = card.cardItems.itemText;
-  cardListItem.appendChild(cardItemText);
+
+  for (var i = 0; i < card.cardItems.length; i++) {
+    var cardListItem = document.createElement("li");
+    var cardItemCheckbox = document.createElement("input");
+    cardItemCheckbox.type = "checkbox";
+    cardItemCheckbox.className = "checkbox";
+    cardListItem.appendChild(cardItemCheckbox);
+
+    var cardItemText = document.createElement("label");
+    cardItemText.className = "card-body-title";
+    // debugger;
+    cardItemText.innerText = card.cardItems[i].itemText;
+    cardListItem.appendChild(cardItemText);
+
+    cardItemList.appendChild(cardListItem);
+  }
 
   var cardFooter = document.createElement("div");
   cardFooter.setAttribute("class", "card-footer");
