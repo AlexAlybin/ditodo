@@ -1,20 +1,49 @@
-var cardsContainer = document.getElementById("cards-container");
+var cardsArr = [
+  //   {
+  //     id: 001,
+  //     title: "Test title 1",
+  //     cardItems: [
+  //       { isChecked: false, itemText: "Test text 1" },
+  //       { isChecked: false, itemText: "Test text 2" }
+  //     ]
+  //   },
+  //   {
+  //     id: 002,
+  //     title: "Test title 2",
+  //     cardItems: [
+  //       { isChecked: false, itemText: "Test text 1" },
+  //       { isChecked: false, itemText: "Test text 2" },
+  //       { isChecked: false, itemText: "Test text 3" }
+  //     ]
+  //   },
+  //   {
+  //     id: 003,
+  //     title: "Test title 3",
+  //     cardItems: [
+  //       { isChecked: false, itemText: "Test text 1" },
+  //       { isChecked: false, itemText: "Test text 2" }
+  //     ]
+  //   }
+];
 
+var cardsContainer = document.getElementById("cards-container");
 var addCardBtn = document.getElementById("add-card-btn");
 addCardBtn.addEventListener("click", addNewCard);
 
-function addNewCard() {
-  console.log("test");
+function createCard(card) {
   var cardItem = document.createElement("div");
-  cardItem.setAttribute("class", "card-item");
+  cardItem.className = "card-item";
 
   var cardHeader = document.createElement("div");
-  cardHeader.setAttribute("class", "card-header");
+  cardHeader.className = "card-header";
 
   var cardHeaderTitle = document.createElement("div");
-  cardHeaderTitle.setAttribute("class", "card-header-title");
-  cardHeaderTitle.innerHTML =
-    '<input type="text" placeholder="Add card title" />';
+  cardHeaderTitle.className = "card-header-title";
+  var cardHeaderTitleInput = document.createElement("input");
+  cardHeaderTitleInput.type = "text";
+  cardHeaderTitleInput.placeholder = "Add card title";
+  cardHeaderTitleInput.innerText = card.title;
+  cardHeaderTitle.appendChild(cardHeaderTitleInput);
 
   var cardHeaderIcon = document.createElement("div");
   cardHeaderIcon.setAttribute("class", "card-header-icon");
@@ -27,6 +56,15 @@ function addNewCard() {
 
   var cardItemList = document.createElement("ul");
   cardItemList.setAttribute("class", "card-body");
+  var cardListItem = document.createElement("li");
+  var cardItemCheckbox = document.createElement("input");
+  cardItemCheckbox.type = "checkbox";
+  cardItemCheckbox.className = "checkbox";
+  cardListItem.appendChild(cardItemCheckbox);
+  var cardItemText = document.createElement("label");
+  cardItemText.className = "card-body-title";
+  cardItemText.innerText = card.cardItems.itemText;
+  cardListItem.appendChild(cardItemText);
 
   var cardFooter = document.createElement("div");
   cardFooter.setAttribute("class", "card-footer");
@@ -40,9 +78,28 @@ function addNewCard() {
   cardItem.appendChild(cardHeader);
   cardItem.appendChild(cardItemList);
   cardItem.appendChild(cardFooter);
-  cardsContainer.appendChild(cardItem);
+
+  return cardItem;
+}
+
+function addNewCard() {
+  cardsArr.push({
+    id: Date.now(),
+    title: "Test title 1",
+    cardItems: [
+      { isChecked: false, itemText: "Test text 1" },
+      { isChecked: false, itemText: "Test text 2" }
+    ]
+  });
+  renderCards(cardsContainer, cardsArr);
 }
 
 function deleteCard() {
   this.closest(".card-item").remove();
+}
+
+function renderCards(container, cardsList) {
+  cardsList.map(createCard).forEach(function(card) {
+    container.appendChild(card);
+  });
 }
