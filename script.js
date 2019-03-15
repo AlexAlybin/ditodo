@@ -6,23 +6,6 @@ var cardsArr = [
   //       { isChecked: false, itemText: "Test text 1" },
   //       { isChecked: false, itemText: "Test text 2" }
   //     ]
-  //   },
-  //   {
-  //     id: 002,
-  //     title: "Test title 2",
-  //     cardItems: [
-  //       { isChecked: false, itemText: "Test text 1" },
-  //       { isChecked: false, itemText: "Test text 2" },
-  //       { isChecked: false, itemText: "Test text 3" }
-  //     ]
-  //   },
-  //   {
-  //     id: 003,
-  //     title: "Test title 3",
-  //     cardItems: [
-  //       { isChecked: false, itemText: "Test text 1" },
-  //       { isChecked: false, itemText: "Test text 2" }
-  //     ]
   //   }
 ];
 
@@ -54,28 +37,16 @@ function createCard(card) {
   deleteCardIcon.addEventListener("click", deleteCard);
   cardHeaderIcon.appendChild(deleteCardIcon);
 
-  var cardItemList = document.createElement("ul");
+  let cardItemList = document.createElement("ul");
   cardItemList.setAttribute("class", "card-body");
-
-  for (var i = 0; i < card.cardItems.length; i++) {
-    var cardListItem = document.createElement("li");
-    var cardItemCheckbox = document.createElement("input");
-    cardItemCheckbox.type = "checkbox";
-    cardItemCheckbox.className = "checkbox";
-    cardListItem.appendChild(cardItemCheckbox);
-
-    var cardItemText = document.createElement("label");
-    cardItemText.className = "card-body-title";
-    // debugger;
-    cardItemText.innerText = card.cardItems[i].itemText;
-    cardListItem.appendChild(cardItemText);
-
-    cardItemList.appendChild(cardListItem);
-  }
 
   var cardFooter = document.createElement("div");
   cardFooter.setAttribute("class", "card-footer");
   var cardFooterInput = document.createElement("input");
+  cardFooterInput.addEventListener(
+    "change",
+    addCardListItem(cardItemList, card.id)
+  );
   cardFooterInput.setAttribute("type", "text");
   cardFooterInput.setAttribute("placeholder", "Add to-do");
   cardFooter.appendChild(cardFooterInput);
@@ -90,23 +61,42 @@ function createCard(card) {
 }
 
 function addNewCard() {
-  cardsArr.push({
-    id: Date.now(),
-    title: "Test title 1",
-    cardItems: [
-      { isChecked: false, itemText: "Test text 1" },
-      { isChecked: false, itemText: "Test text 2" }
-    ]
-  });
-  renderCards(cardsContainer, cardsArr);
+  var _cardId = (Math.random() * (10000 - 1) + 1).toFixed(0);
+  var _newCard = {
+    id: _cardId,
+    title: "Test card #" + _cardId,
+    cardItems: []
+  };
+  cardsArr.push(_newCard);
+  cardsContainer.appendChild(createCard(_newCard));
+}
+
+function addCardListItem(list, cardId) {
+  return function() {
+    var itemText = this.value;
+    var cardListItem = document.createElement("li");
+    var cardItemCheckbox = document.createElement("input");
+    cardItemCheckbox.type = "checkbox";
+    cardItemCheckbox.className = "checkbox";
+    cardListItem.appendChild(cardItemCheckbox);
+
+    var cardItemText = document.createElement("label");
+    cardItemText.className = "card-body-title";
+    cardItemText.innerText = itemText;
+    cardListItem.appendChild(cardItemText);
+
+    list.appendChild(cardListItem);
+
+    for (var i = 0; i < cardsArr.length; i++) {
+      if (cardsArr[i].id === cardId) {
+        cardsArr[i].cardItems.push({ isChecked: false, itemText: itemText });
+      }
+    }
+    this.value = "";
+    console.log(cardsArr);
+  };
 }
 
 function deleteCard() {
   this.closest(".card-item").remove();
-}
-
-function renderCards(container, cardsList) {
-  cardsList.map(createCard).forEach(function(card) {
-    container.appendChild(card);
-  });
 }

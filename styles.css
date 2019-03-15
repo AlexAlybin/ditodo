@@ -51,8 +51,9 @@ input:focus {
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 250px;
   width: 100%;
-  min-width: 250px;
+  min-width: 400px;
   max-width: 550px;
   background-color: #fff;
   border-radius: 6px;
@@ -112,7 +113,7 @@ input[type="checkbox"]:checked + label {
 }
 
 #add-card-icon {
-  right: 110px;
+  right: 50px;
   bottom: 50px;
   position: fixed;
   cursor: pointer;
