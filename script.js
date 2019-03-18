@@ -32,9 +32,11 @@ const createCard = card => {
   deleteCardIcon.setAttribute("class", "delete-card-icon");
   deleteCardIcon.setAttribute("src", "images/delete.svg");
   deleteCardIcon.setAttribute("alt", "delete-icon");
-
+  cardHeaderIcon.dataset.id = card.id;
   cardHeaderIcon.appendChild(deleteCardIcon);
-  deleteCardIcon.addEventListener("click", deleteCard(card.id));
+  deleteCardIcon.addEventListener("click", function() {
+    deleteCard(event, card.id);
+  });
 
   const cardItemList = document.createElement("ul");
   cardItemList.setAttribute("class", "card-body");
@@ -98,16 +100,11 @@ const addCardListItem = (list, cardId) =>
     console.log(cardsArr);
   };
 
-function deleteCard(id) {
-  // console.log(e.target);
-  // e.target.closest(".card-item").remove();
-  // for (let i = 0; i < cardsArr.length; i++) {
-  //   if (cardsArr[i].id === id) {
-  //     cardsArr.splice(cardsArr[i], 1);
-  //   }
-  // }
-  cardsArr.filter(function(item) {
-    return item.id != id;
-  });
-  console.log(cardsArr);
+function deleteCard(e, id) {
+  e.target.closest(".card-item").remove();
+  for (let i = 0; i < cardsArr.length; i++) {
+    if (cardsArr[i].id === id) {
+      cardsArr.splice(cardsArr[i], 1);
+    }
+  }
 }
