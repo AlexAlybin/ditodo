@@ -1,4 +1,4 @@
-var cardsArr = [
+const cardsArr = [
   //   {
   //     id: 001,
   //     title: "Test title 1",
@@ -9,40 +9,39 @@ var cardsArr = [
   //   }
 ];
 
-var cardsContainer = document.getElementById("cards-container");
-var addCardBtn = document.getElementById("add-card-btn");
-addCardBtn.addEventListener("click", addNewCard);
+const cardsContainer = document.getElementById("cards-container");
 
-function createCard(card) {
-  var cardItem = document.createElement("div");
+const createCard = card => {
+  const cardItem = document.createElement("div");
   cardItem.className = "card-item";
 
-  var cardHeader = document.createElement("div");
+  const cardHeader = document.createElement("div");
   cardHeader.className = "card-header";
 
-  var cardHeaderTitle = document.createElement("div");
+  const cardHeaderTitle = document.createElement("div");
   cardHeaderTitle.className = "card-header-title";
-  var cardHeaderTitleInput = document.createElement("input");
+  const cardHeaderTitleInput = document.createElement("input");
   cardHeaderTitleInput.type = "text";
   cardHeaderTitleInput.placeholder = "Add card title";
   cardHeaderTitleInput.value = card.title;
   cardHeaderTitle.appendChild(cardHeaderTitleInput);
 
-  var cardHeaderIcon = document.createElement("div");
+  const cardHeaderIcon = document.createElement("div");
   cardHeaderIcon.setAttribute("class", "card-header-icon");
-  var deleteCardIcon = document.createElement("img");
+  const deleteCardIcon = document.createElement("img");
   deleteCardIcon.setAttribute("class", "delete-card-icon");
   deleteCardIcon.setAttribute("src", "images/delete.svg");
   deleteCardIcon.setAttribute("alt", "delete-icon");
-  deleteCardIcon.addEventListener("click", deleteCard);
-  cardHeaderIcon.appendChild(deleteCardIcon);
 
-  let cardItemList = document.createElement("ul");
+  cardHeaderIcon.appendChild(deleteCardIcon);
+  deleteCardIcon.addEventListener("click", deleteCard(card.id));
+
+  const cardItemList = document.createElement("ul");
   cardItemList.setAttribute("class", "card-body");
 
-  var cardFooter = document.createElement("div");
+  const cardFooter = document.createElement("div");
   cardFooter.setAttribute("class", "card-footer");
-  var cardFooterInput = document.createElement("input");
+  const cardFooterInput = document.createElement("input");
   cardFooterInput.addEventListener(
     "change",
     addCardListItem(cardItemList, card.id)
@@ -58,36 +57,39 @@ function createCard(card) {
   cardItem.appendChild(cardFooter);
 
   return cardItem;
-}
+};
 
-function addNewCard() {
-  var _cardId = (Math.random() * (10000 - 1) + 1).toFixed(0);
-  var _newCard = {
+const addNewCard = () => {
+  const _cardId = (Math.random() * (10000 - 1) + 1).toFixed(0);
+  const _newCard = {
     id: _cardId,
     title: "Test card #" + _cardId,
     cardItems: []
   };
   cardsArr.push(_newCard);
   cardsContainer.appendChild(createCard(_newCard));
-}
+};
 
-function addCardListItem(list, cardId) {
-  return function() {
-    var itemText = this.value;
-    var cardListItem = document.createElement("li");
-    var cardItemCheckbox = document.createElement("input");
+const addCardBtn = document.getElementById("add-card-btn");
+addCardBtn.addEventListener("click", addNewCard);
+
+const addCardListItem = (list, cardId) =>
+  function() {
+    const itemText = this.value;
+    const cardListItem = document.createElement("li");
+    const cardItemCheckbox = document.createElement("input");
     cardItemCheckbox.type = "checkbox";
     cardItemCheckbox.className = "checkbox";
     cardListItem.appendChild(cardItemCheckbox);
 
-    var cardItemText = document.createElement("label");
+    const cardItemText = document.createElement("label");
     cardItemText.className = "card-body-title";
     cardItemText.innerText = itemText;
     cardListItem.appendChild(cardItemText);
 
     list.appendChild(cardListItem);
 
-    for (var i = 0; i < cardsArr.length; i++) {
+    for (let i = 0; i < cardsArr.length; i++) {
       if (cardsArr[i].id === cardId) {
         cardsArr[i].cardItems.push({ isChecked: false, itemText: itemText });
       }
@@ -95,8 +97,17 @@ function addCardListItem(list, cardId) {
     this.value = "";
     console.log(cardsArr);
   };
-}
 
-function deleteCard() {
-  this.closest(".card-item").remove();
+function deleteCard(id) {
+  // console.log(e.target);
+  // e.target.closest(".card-item").remove();
+  // for (let i = 0; i < cardsArr.length; i++) {
+  //   if (cardsArr[i].id === id) {
+  //     cardsArr.splice(cardsArr[i], 1);
+  //   }
+  // }
+  cardsArr.filter(function(item) {
+    return item.id != id;
+  });
+  console.log(cardsArr);
 }
