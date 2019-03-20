@@ -1,4 +1,4 @@
-const cardsArr = [
+let cardsArr = [
   //   {
   //     id: 001,
   //     title: "Test title 1",
@@ -34,8 +34,8 @@ const createCard = card => {
   deleteCardIcon.setAttribute("alt", "delete-icon");
   cardHeaderIcon.dataset.id = card.id;
   cardHeaderIcon.appendChild(deleteCardIcon);
-  deleteCardIcon.addEventListener("click", function() {
-    deleteCard(event, card.id);
+  deleteCardIcon.addEventListener("click", function(e) {
+    deleteCard(e, card.id);
   });
 
   const cardItemList = document.createElement("ul");
@@ -62,7 +62,7 @@ const createCard = card => {
 };
 
 const addNewCard = () => {
-  const _cardId = (Math.random() * (10000 - 1) + 1).toFixed(0);
+  const _cardId = String(Date.now()).slice(-4);
   const _newCard = {
     id: _cardId,
     title: "Test card #" + _cardId,
@@ -80,8 +80,13 @@ const addCardListItem = (list, cardId) =>
     const itemText = this.value;
     const cardListItem = document.createElement("li");
     const cardItemCheckbox = document.createElement("input");
+    const itemId = String(Date.now()).slice(-4);
     cardItemCheckbox.type = "checkbox";
     cardItemCheckbox.className = "checkbox";
+    cardItemCheckbox.dataset.id = itemId;
+    cardItemCheckbox.addEventListener("change", function(e) {
+      markAsDone(e, cardItemText, cardId, itemId);
+    });
     cardListItem.appendChild(cardItemCheckbox);
 
     const cardItemText = document.createElement("label");
@@ -91,11 +96,31 @@ const addCardListItem = (list, cardId) =>
 
     list.appendChild(cardListItem);
 
-    for (let i = 0; i < cardsArr.length; i++) {
-      if (cardsArr[i].id === cardId) {
-        cardsArr[i].cardItems.push({ isChecked: false, itemText: itemText });
-      }
-    }
+    // for (let i = 0; i < cardsArr.length; i++) {
+    //   if (cardsArr[i].id === cardId) {
+    //     cardsArr[i].cardItems.push({
+    //       id: itemId,
+    //       isChecked: false,
+    //       itemText: itemText
+    //     });
+    //   }
+    // }
+    cardsArr = cardsArr.map(item =>
+      item.id === cardId
+        ? {
+            ...item,
+            cardItems: [
+              ...item.cardItems,
+              {
+                id: itemId,
+                isChecked: false,
+                itemText: itemText
+              }
+            ]
+          }
+        : item
+    );
+
     this.value = "";
     console.log(cardsArr);
   };
@@ -107,4 +132,24 @@ function deleteCard(e, id) {
       cardsArr.splice(cardsArr[i], 1);
     }
   }
+}
+
+function markAsDone(e, cardItem, cardId, itemId) {
+  if (e.target.checked) {
+    cardItem.classList.add("checked-text");
+  } else {
+    cardItem.classList.remove("checked-text");
+  }
+  cardsArr = cardsArr.map(item =>
+    item.id === cardId
+      ? {
+          ...item,
+          cardItems: item.cardItems.map(cardItem =>
+            cardItem.id === itemId
+              ? { ...cardItem, isChecked: e.target.checked }
+              : cardItem
+          )
+        }
+      : item
+  );
 }
