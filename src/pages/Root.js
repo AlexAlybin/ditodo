@@ -1,16 +1,20 @@
-import React from "react"
+import React from 'react';
+import { Header } from "../components/header/Header"
+import { HeaderLine } from "../components/header/Header"
+import { CardsArea } from "../components/cardsArea/CardsArea"
+import { Footer } from "../components/footer/Footer"
+import toImg from "../images/p1.svg"
+import doImg from "../images/p2.svg"
 
-export class Root extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            cards: []
-        }
-    }
+export const Root = () => (
+    <div>
+        <Header>
+            <img src={toImg} />
+            <HeaderLine />
+            <img src={doImg} />
+        </Header>
+        <CardsArea />
+        <Footer />
+    </div>
+)
 
-    render() {
-        return (
-            <h1>Test Title</h1>
-        )
-    }
-}
