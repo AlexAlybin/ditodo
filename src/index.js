@@ -11,6 +11,10 @@ const App = () => (
 const node = document.createElement('div')
 document.body.appendChild(node)
 
+const bodyCSS = "min-height: 100%; margin: 0; padding: 0; background-color: #e4e4e4;"
+
+document.body.style.cssText = bodyCSS;
+
 ReactDOM.render(
     <App />,
     node

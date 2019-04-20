@@ -21,6 +21,7 @@ width: 100%;
 
 const CardBody = styled.div`
 display:flex;
+flex-direction: column;
 height: calc(100% - 30px - 30px);
 width: 100%;
 `
@@ -44,6 +45,14 @@ background: none;
 cursor: pointer;
 `
 
+const CardItem = styled.div`
+display: flex;
+width: 100%;
+height: fit-content;
+justify-content: flex-start;
+margin: 5px;
+`
+
 const CardFooterInput = styled.input`
 width: 80%;
 border: none;
@@ -51,15 +60,24 @@ margin-left: 5px;
 margin-bottom: 5px;
 `
 
-export const Card = () => (
-    <CardWrapper>
-        <CardHeader>
-            <CardTitleInput type="text" placeholder="Type card title" />
-            <CardDeleteBtn><img src={deleteBtn} /></CardDeleteBtn>
-        </CardHeader>
-        <CardBody></CardBody>
-        <CardFooter>
-            <CardFooterInput type="text" placeholder="Add todo..." />
-        </CardFooter>
-    </CardWrapper >
-)
+export const Card = (props) =>
+    (
+        <CardWrapper>
+            <CardHeader>
+                <CardTitleInput defaultValue={props.title} type="text" placeholder="Type card title" />
+                <CardDeleteBtn><img src={deleteBtn} /></CardDeleteBtn>
+            </CardHeader>
+            <CardBody>
+                {props.cardItems.map(
+                    (item) =>
+                        <CardItem
+                            key={item.itemId}>
+                            <input type="checkbox" defaultChecked={item.isChecked} />
+                            <span>{item.itemText}</span>
+                        </CardItem>)}
+            </CardBody>
+            <CardFooter>
+                <CardFooterInput type="text" placeholder="Add todo..." />
+            </CardFooter>
+        </CardWrapper >
+    )

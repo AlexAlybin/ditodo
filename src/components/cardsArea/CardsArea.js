@@ -6,7 +6,6 @@ import addCardBtn from "../../images/Add.svg"
 import { Card } from "../card/Card"
 
 const CardsAreaWrapper = styled.div`
-background: #e4e4e4;
 height: 100%;
 display: flex;
 flex-wrap: wrap;
@@ -28,15 +27,50 @@ export class CardsArea extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            cards: []
+            cards: [
+                {
+                    cardId: 1,
+                    title: "Card #1",
+                    cardItems: [
+                        {
+                            itemId: 1,
+                            isChecked: false,
+                            itemText: "This is test item"
+                        }
+                    ]
+                },
+                {
+                    cardId: 2,
+                    title: "Card #2",
+                    cardItems: [
+                        {
+                            itemId: 2,
+                            isChecked: true,
+                            itemText: "This is test item. This is test item. This is test item. This is test item."
+                        },
+                        {
+                            itemId: 3,
+                            isChecked: true,
+                            itemText: "This is test item. This is test item. This is test item. This is test item."
+                        }
+                    ]
+                }
+            ]
         }
     }
+
     render() {
         return (
             <CardsAreaWrapper>
-                <Card />
-                <Card />
-                <Card />
+                {this.state.cards.map(
+                    (cardItem) => (
+                        <Card
+                            key={cardItem.cardId}
+                            title={cardItem.title}
+                            cardItems={cardItem.cardItems} />
+                    )
+                )
+                }
                 <AddCardBtn><img src={addCardBtn} /></AddCardBtn>
             </CardsAreaWrapper>
         )
