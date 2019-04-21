@@ -66,7 +66,7 @@ export const Card = (props) =>
         <CardWrapper>
             <CardHeader>
                 <CardTitleInput defaultValue={props.title} type="text" placeholder="Type card title" />
-                <CardDeleteBtn><img src={deleteBtn} /></CardDeleteBtn>
+                <CardDeleteBtn onClick={props.deleteCard}><img src={deleteBtn} /></CardDeleteBtn>
             </CardHeader>
             <CardBody>
                 {props.cardItems.map(
@@ -78,7 +78,7 @@ export const Card = (props) =>
                         </CardItem>)}
             </CardBody>
             <CardFooter>
-                <CardFooterInput type="text" placeholder="Add to do..." />
+                <CardFooterInput type="text" placeholder="Add to do..." onKeyPress={props.addItem} />
             </CardFooter>
         </CardWrapper >
     )

@@ -4,7 +4,7 @@ import styled from "styled-components"
 import addCardBtn from "../../images/Add.svg"
 
 import { Card } from "../card/Card"
-import { addCard, deleteCard } from "../../store/reducers/cardsListReducer"
+import { addCard, deleteCard, addItem } from "../../store/reducers/cardsListReducer"
 
 import { connect } from 'react-redux';
 
@@ -64,7 +64,7 @@ export class CardsAreaC extends React.Component {
     // }
 
     render() {
-        const { cards, addCard, deleteCard } = this.props;
+        const { cards, addCard, deleteCard, addItem } = this.props;
         const newCardObj = {
             cardId: Date.now(),
             title: "",
@@ -76,6 +76,11 @@ export class CardsAreaC extends React.Component {
                 // }
             ]
         }
+
+        const newItem = {
+            isChecked: false,
+            itemText: "TEST 123"
+        }
         return (
             <CardsAreaWrapper>
                 {
@@ -83,7 +88,9 @@ export class CardsAreaC extends React.Component {
                         <Card
                             key={card.cardId}
                             title={card.title}
-                            cardItems={card.cardItems} />
+                            cardItems={card.cardItems}
+                            deleteCard={() => deleteCard(card.cardId)}
+                            addItem={() => addItem(card.cardId, newItem)} />
                     ))
                 }
                 <AddCardBtn onClick={() => addCard(newCardObj)}><img src={addCardBtn} /></AddCardBtn>
@@ -98,6 +105,7 @@ export const CardsArea = connect(
     }),
     dispatch => ({
         addCard: (payload) => dispatch(addCard(payload)),
-        deleteCard: (cardId) => dispatch(deleteCard(cardId))
+        deleteCard: (cardId) => dispatch(deleteCard(cardId)),
+        addItem: (cardId, payload) => dispatch(addItem(cardId, payload))
     })
 )(CardsAreaC)
