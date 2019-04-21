@@ -43,6 +43,7 @@ const CardDeleteBtn = styled.button`
 border: none;
 background: none;
 cursor: pointer;
+outline: none;
 `
 
 const CardItem = styled.div`
@@ -77,7 +78,7 @@ export const Card = (props) =>
                         </CardItem>)}
             </CardBody>
             <CardFooter>
-                <CardFooterInput type="text" placeholder="Add todo..." />
+                <CardFooterInput type="text" placeholder="Add to do..." />
             </CardFooter>
         </CardWrapper >
     )

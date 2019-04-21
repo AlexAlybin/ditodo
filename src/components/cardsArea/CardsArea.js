@@ -4,6 +4,9 @@ import styled from "styled-components"
 import addCardBtn from "../../images/Add.svg"
 
 import { Card } from "../card/Card"
+import { addCard, deleteCard } from "../../store/reducers/cardsListReducer"
+
+import { connect } from 'react-redux';
 
 const CardsAreaWrapper = styled.div`
 height: 100%;
@@ -20,59 +23,81 @@ cursor: pointer;
 position: fixed;
 right: 50px;
 bottom: 50px;
+outline: none;
 `
 
 
-export class CardsArea extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            cards: [
-                {
-                    cardId: 1,
-                    title: "Card #1",
-                    cardItems: [
-                        {
-                            itemId: 1,
-                            isChecked: false,
-                            itemText: "This is test item"
-                        }
-                    ]
-                },
-                {
-                    cardId: 2,
-                    title: "Card #2",
-                    cardItems: [
-                        {
-                            itemId: 2,
-                            isChecked: true,
-                            itemText: "This is test item. This is test item. This is test item. This is test item."
-                        },
-                        {
-                            itemId: 3,
-                            isChecked: true,
-                            itemText: "This is test item. This is test item. This is test item. This is test item."
-                        }
-                    ]
-                }
-            ]
-        }
-    }
+export class CardsAreaC extends React.Component {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    // cards: [
+    //     {
+    //         cardId: 1,
+    //         title: "Card #1",
+    //         cardItems: [
+    //             {
+    //                 itemId: 1,
+    //                 isChecked: false,
+    //                 itemText: "This is test item"
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         cardId: 2,
+    //         title: "Card #2",
+    //         cardItems: [
+    //             {
+    //                 itemId: 2,
+    //                 isChecked: true,
+    //                 itemText: "This is test item. This is test item. This is test item. This is test item."
+    //             },
+    //             {
+    //                 itemId: 3,
+    //                 isChecked: true,
+    //                 itemText: "This is test item. This is test item. This is test item. This is test item."
+    //             }
+    //         ]
+    //     }
+    // ]
+    //     }
+    // }
 
     render() {
+        const { cards, addCard, deleteCard } = this.props;
+        const newCardObj = {
+            cardId: Date.now(),
+            title: "",
+            cardItems: [
+                // {
+                //     itemId: Date.now(),
+                //     isChecked: false,
+                //     itemText: "This is test item"
+                // }
+            ]
+        }
         return (
             <CardsAreaWrapper>
-                {this.state.cards.map(
-                    (cardItem) => (
+                {
+                    cards.map(card => (
                         <Card
-                            key={cardItem.cardId}
-                            title={cardItem.title}
-                            cardItems={cardItem.cardItems} />
-                    )
-                )
+                            key={card.cardId}
+                            title={card.title}
+                            cardItems={card.cardItems} />
+                    ))
                 }
-                <AddCardBtn><img src={addCardBtn} /></AddCardBtn>
+                <AddCardBtn onClick={() => addCard(newCardObj)}><img src={addCardBtn} /></AddCardBtn>
             </CardsAreaWrapper>
         )
     }
 }
+
+export const CardsArea = connect(
+    store => ({
+        cards: store.cardsListReducer.cards
+    }),
+    dispatch => ({
+        addCard: (payload) => dispatch(addCard(payload)),
+        deleteCard: (cardId) => dispatch(deleteCard(cardId))
+    })
+)(CardsAreaC)
