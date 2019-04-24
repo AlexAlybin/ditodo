@@ -78,7 +78,7 @@ export const Card = (props) =>
                         </CardItem>)}
             </CardBody>
             <CardFooter>
-                <CardFooterInput type="text" placeholder="Add to do..." onKeyPress={props.addItem} />
+                <CardFooterInput type="text" placeholder="Add to do..." onKeyUp={props.addItem} />
             </CardFooter>
         </CardWrapper >
     )

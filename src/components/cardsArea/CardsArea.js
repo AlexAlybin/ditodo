@@ -8,6 +8,8 @@ import { addCard, deleteCard, addItem } from "../../store/reducers/cardsListRedu
 
 import { connect } from 'react-redux';
 
+import v4 from "uuid"
+
 const CardsAreaWrapper = styled.div`
 height: 100%;
 display: flex;
@@ -77,10 +79,16 @@ export class CardsAreaC extends React.Component {
             ]
         }
 
-        const newItem = {
-            isChecked: false,
-            itemText: "TEST 123"
-        }
+        const newItem = (e, cardId) => ({
+            item: {
+                id: v4(),
+                isChecked: false,
+                itemText: e.target.value
+            },
+            cardId
+        })
+
+        console.log(cards)
         return (
             <CardsAreaWrapper>
                 {
@@ -90,7 +98,7 @@ export class CardsAreaC extends React.Component {
                             title={card.title}
                             cardItems={card.cardItems}
                             deleteCard={() => deleteCard(card.cardId)}
-                            addItem={() => addItem(card.cardId, newItem)} />
+                            addItem={(e) => { addItem(newItem(e, card.cardId)) }} />
                     ))
                 }
                 <AddCardBtn onClick={() => addCard(newCardObj)}><img src={addCardBtn} /></AddCardBtn>
@@ -106,6 +114,6 @@ export const CardsArea = connect(
     dispatch => ({
         addCard: (payload) => dispatch(addCard(payload)),
         deleteCard: (cardId) => dispatch(deleteCard(cardId)),
-        addItem: (cardId, payload) => dispatch(addItem(cardId, payload))
+        addItem: (payload) => dispatch(addItem(payload))
     })
 )(CardsAreaC)
